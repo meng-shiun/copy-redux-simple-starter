@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import YTSearch from 'youtube-api-search'
@@ -33,7 +34,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <SearchBar onSearchTermChage={this.handleVideoSearch}/>
+        <SearchBar onSearchTermChage={_.debounce(this.handleVideoSearch, 400)}/>
         <VideoDetail video={this.state.selectedVideo}/>
         <VideoList
           onVideoSelect={this.handleVideoSelect}
