@@ -14,7 +14,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    YTSearch({ key: API_KEY, term: 'chocolate' }, (videos) => {
+    this.handleVideoSearch('japan')
+  }
+
+  handleVideoSearch = (term) => {
+    YTSearch({key: API_KEY, term: term}, (videos) => {
       this.setState({
         videos: videos,
         selectedVideo: videos[0]
@@ -29,7 +33,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <SearchBar />
+        <SearchBar onSearchTermChage={this.handleVideoSearch}/>
         <VideoDetail video={this.state.selectedVideo}/>
         <VideoList
           onVideoSelect={this.handleVideoSelect}
