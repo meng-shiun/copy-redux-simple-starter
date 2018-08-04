@@ -9,21 +9,32 @@ const API_KEY = 'AIzaSyCgijOAYHAubfTkf2sveenUh_wpFyB2B2A'
 
 class App extends Component {
   state = {
-    videos: []
+    videos: [],
+    selectedVideo: null
   }
 
   componentDidMount() {
-    YTSearch({ key: API_KEY, term: 'conan' }, (videos) => {
-      this.setState({ videos })
+    YTSearch({ key: API_KEY, term: 'chocolate' }, (videos) => {
+      this.setState({
+        videos: videos,
+        selectedVideo: videos[0]
+      })
     })
+  }
+
+  handleVideoSelect = (selectedVideo) => {
+    this.setState({selectedVideo})
   }
 
   render() {
     return (
       <div>
         <SearchBar />
-        <VideoDetail video={this.state.videos[0]}/>
-        <VideoList videos={this.state.videos}/>
+        <VideoDetail video={this.state.selectedVideo}/>
+        <VideoList
+          onVideoSelect={this.handleVideoSelect}
+          videos={this.state.videos}
+        />
       </div>
     )
   }
